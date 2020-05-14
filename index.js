@@ -1,6 +1,6 @@
 const puppeteer = require('puppeteer');
 
-
+try{
 (async () => {
   const browser = await puppeteer.launch();
   const page = await browser.newPage();
@@ -122,6 +122,7 @@ const puppeteer = require('puppeteer');
   // Перейти до прудів, забрати рибу і розводити
   await customGoTo('http://sadovnik.mobi/mypool?-1.ILinkListener-harvestAll&t=0', standartDelay);
   await searchAndClick({tag: 'a', action: 'Разводить', delay: standartDelay});
+  await searchAndClick({tag: 'a', action: 'Покормить всё', delay: standartDelay});
   await confirmAction();
 
   // Перейти до салуну
@@ -155,8 +156,25 @@ const puppeteer = require('puppeteer');
   await page.goto('http://sadovnik.mobi/tasks?-1.ILinkListener-task-7-rewardLink&0=3094169');
   await page.goto('http://sadovnik.mobi/tasks?-1.ILinkListener-task-8-rewardLink&0=3094169');
   
-  await page.screenshot({path: 'example.png', fullPage: true});
-  console.log('Screenshot are created');
+  // await page.screenshot({path: 'result.png', fullPage: true});
+  // console.log('Screenshot are created');
+  const date = new Date();
+  const year = date.getFullYear();
+  const month = date.getMonth()+1;
+  const day = date.getDate();
+  const hour = date.getHours();
+  const minutes = date.getMinutes();
+  const seconds = date.getSeconds();
+
+  const dateString = `${day}.${month}.${year} - ${hour}:${minutes}:${seconds}`;
+  
+  console.log(dateString);
+  
 
   await browser.close();
 })();
+}
+catch(e){
+  console.error('Error',dateString);
+  process.exit(1);
+}
